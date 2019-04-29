@@ -9,20 +9,24 @@ function getPosts() {
   ]
 }
 
+const PostLink = ({ post }) => (
+  <li>
+    <Link as={`/p/${post.id}`} href={`post?title=${post.title}`}>
+      <a>{post.title}</a>
+    </Link>
+  </li>
+)
+
 export default function Blog() {
   return (
     <Layout>
       <h1>My Blog</h1>
       <ul>
         {getPosts().map(post => (
-          <li key={post.id}>
-            <Link as={`/p/${post.id}`} href={`/post?title=${post.title}`}>
-              <a>{post.title}</a>
-            </Link>
-          </li>
+          <PostLink key={post.id} post={post} />
         ))}
       </ul>
-      <style jsx>
+      <style jsx>{`
         h1,
         a {
           font-family: 'Arial';
@@ -45,7 +49,7 @@ export default function Blog() {
         a:hover {
           opacity: 0.6;
         }
-      </style>
+      `}</style>
     </Layout>
   )
 }
